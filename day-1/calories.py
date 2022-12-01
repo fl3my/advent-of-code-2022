@@ -3,12 +3,9 @@ elf_list = []
 
 puzzleInput = open('input.txt', 'r')
 
-count = 0
 total = 0
 
 while True:
-    count += 1
-
     line = puzzleInput.readline()
 
     # Loop until end of file
