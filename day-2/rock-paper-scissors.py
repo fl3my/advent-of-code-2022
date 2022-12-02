@@ -1,7 +1,7 @@
 loses_to = {
-    "rock": {"scissors"},
-    "paper": {"rock"},
-    "scissors": {"paper"},
+    "rock": "scissors",
+    "paper": "rock",
+    "scissors": "paper",
 }
 
 # Decrypt the input values
@@ -10,6 +10,21 @@ def decrypt(letter):
     elif letter in ["B","Y"]: return "paper"
     elif letter in ["C", "Z"]: return "scissors"
 
+def get_choice_2(letter_1, letter_2):
+    choice = decrypt(letter_1)
+
+    # You lose
+    if letter_2 == "X":
+        return loses_to[choice]
+
+    # You draw
+    if letter_2 == "Y":
+        return choice
+
+    # You Win
+    if letter_2 == "Z":
+        return list(loses_to.keys())[list(loses_to.values()).index(choice)]
+
 def getScore(choice):
     if choice == "rock": return 1
     elif choice == "paper": return 2
@@ -17,9 +32,11 @@ def getScore(choice):
 
 def play(choice_1, choice_2):
 
-    choice_1 = decrypt(choice_1)
-    choice_2 = decrypt(choice_2)
+    choice_2 = get_choice_2(choice_1, choice_2)
+    # choice_2 = decrypt(choice_2)   
 
+    choice_1 = decrypt(choice_1)
+ 
     # Get the shapes default score
     score = getScore(choice_2)
 
@@ -51,6 +68,7 @@ def main():
 
     puzzleInput.close()
 
+    print(get_choice_2("B", "Z"))
     print(total)
 
 if __name__ == "__main__":
