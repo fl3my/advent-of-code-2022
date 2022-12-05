@@ -21,7 +21,7 @@ class TestStacks(unittest.TestCase):
             "move 1 from 2 to 1",
             "move 3 from 1 to 3",
             "move 2 from 2 to 1",
-            "move 1 from 1 to 2"
+            "move 1 from 1 to 2",
             ]]
 
         self.assertEqual(result, expected)
@@ -46,21 +46,21 @@ class TestStacks(unittest.TestCase):
 
         self.assertEqual(result, expected)
 
-    def test_move_crates_single(self):
+    def test_move_crates_one_by_one_single(self):
 
         all_stacks = [['Z', 'N'], ['M', 'C', 'D'], ['P']]
 
-        result = stacks.move_crates(all_stacks, 1, 2, 1)
+        result = stacks.move_crates_one_by_one(all_stacks, 1, 2, 1)
 
         expected = [['Z', 'N', 'D'], ['M', 'C'], ['P']]
 
         self.assertEqual(result, expected)
 
-    def test_move_crates_multiple(self):
+    def test_move_crates_one_by_one_multiple(self):
 
         all_stacks = [['Z', 'N', 'D'], ['M', 'C'], ['P']]
 
-        result = stacks.move_crates(all_stacks, 3, 1, 3)
+        result = stacks.move_crates_one_by_one(all_stacks, 3, 1, 3)
 
         expected = [[], ['M', 'C'], ['P', 'D', 'N', 'Z']]
 
@@ -81,6 +81,15 @@ class TestStacks(unittest.TestCase):
         result = stacks.read_procedure(procedure_line)
 
         self.assertEqual(result, {'count': 1, 'last_pos': 2, 'new_pos': 1})
+
+    def test_move_crates_bulk(self):
+        all_stacks = [['Z', 'N', 'D'], ['M', 'C'], ['P']]
+
+        result = stacks.move_crates_bulk(all_stacks, 3, 1, 3)
+
+        expected = [[], ['M', 'C'], ['P', 'Z', 'N', 'D']]
+
+        self.assertEqual(result, expected)
 
 if __name__ == "__main__":
     unittest.main()

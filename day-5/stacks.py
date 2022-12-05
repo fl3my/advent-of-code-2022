@@ -48,7 +48,7 @@ def get_stacks(graph):
     return stacks
 
 # move x amount of crates from one stack to another sequentially
-def move_crates(stacks, count, last_pos, new_pos):
+def move_crates_one_by_one(stacks, count, last_pos, new_pos):
 
     last_pos -= 1
     new_pos -= 1
@@ -59,6 +59,25 @@ def move_crates(stacks, count, last_pos, new_pos):
     for i in range(count):
         crate = new_stacks[last_pos].pop()
         new_stacks[new_pos].append(crate)
+
+    return new_stacks
+
+# Move crates in same order to another stack
+def move_crates_bulk(stacks, count, last_pos, new_pos):
+
+    last_pos -= 1
+    new_pos -= 1
+
+    new_stacks = stacks
+
+    # Take off the old stack
+    crates = new_stacks[last_pos][-count:]
+
+    # Delete the last items on the stack
+    del new_stacks[last_pos][-count:]
+
+    # Add the items onto the new stack
+    new_stacks[new_pos].extend(crates)
 
     return new_stacks
 
@@ -89,7 +108,7 @@ def main():
     # for each line in the procedure list
     for line in procedures:
         procedure = read_procedure(line)
-        stacks = move_crates(stacks, procedure['count'], procedure['last_pos'], procedure['new_pos'])
+        stacks = move_crates_bulk(stacks, procedure['count'], procedure['last_pos'], procedure['new_pos'])
 
     print(get_top_crates(stacks))
 
