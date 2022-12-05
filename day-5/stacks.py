@@ -107,8 +107,12 @@ def main():
 
     # for each line in the procedure list
     for line in procedures:
+        
         procedure = read_procedure(line)
+
         stacks = move_crates_bulk(stacks, procedure['count'], procedure['last_pos'], procedure['new_pos'])
+        # stacks = move_crates_one_by_one(stacks, procedure['count'], procedure['last_pos'], procedure['new_pos'])
+
 
     print(get_top_crates(stacks))
 
