@@ -35,7 +35,12 @@ def main():
     # Get the packet position
     packet_pos = get_start_of_packet_marker(signal, 4)
 
-    print("The start position is {0}.".format(str(packet_pos)))
+    # Get start of message position
+    message_pos = get_start_of_packet_marker(signal, 14)
+
+    print("The start packet position is {0}.".format(str(packet_pos)))
+    print("The start message position is {0}.".format(str(message_pos)))
+
 
 if __name__ == "__main__":
     main()
